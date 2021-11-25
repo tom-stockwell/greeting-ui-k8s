@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greeting-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: greeting-ui
+  template:
+    metadata:
+      labels:
+        deployment: greeting-ui
+    spec:
+      containers:
+      - name: greeting-ui
+        image: quay.io/gh-stocky37/greeting-ui:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+        volumeMounts:
+          - name: config
+            mountPath: /opt/app-root/src/env.js
+            subPath: env.js
+            readOnly: true
+      volumes:
+      - name: config
+        configMap:
+          name: greeting-ui-config

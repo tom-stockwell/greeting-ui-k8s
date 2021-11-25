@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: example-app-production
+
+commonLabels:
+  environment: &env production
+
+resources:
+- ../../base
+
+images:
+  - name: quay.io/gh-stocky37/greeting-ui
+    newTag: *env
+
+configMapGenerator:
+- name: greeting-ui-config
+  files:
+  - env.js
