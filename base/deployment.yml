@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: greeting-ui
-        image: quay.io/gh-stocky37/greeting-ui:latest
+        image: quay.io/tstockwell/greeting-ui:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

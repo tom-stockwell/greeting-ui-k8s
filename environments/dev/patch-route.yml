@@ -1,0 +1,6 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: greeting-ui
+spec:
+  host: dev.ex-greeting.apps.paas.lab.stocky37.dev
