@@ -3,7 +3,7 @@ kind: Route
 metadata:
   name: greeting-ui
 spec:
-  host: example-app.apps.paas.lab.stocky37.dev
+  host: ex-greeting.apps.paas.lab.stocky37.dev
   port:
     targetPort: http
   to:

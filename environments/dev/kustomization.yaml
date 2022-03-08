@@ -1,31 +1,32 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: example-app-staging
+namespace: examples-dev
 
 commonLabels:
-  environment: &env staging
+  environment: dev
 
 resources:
 - ../../base
 
 images:
-  - name: quay.io/gh-stocky37/greeting-ui
-    newTag: *env
+- digest: sha256:016a812d01c512faf5f37564531a95efe9a7ecc444801cfa74cf2e33aecfa4c7
+  name: quay.io/gh-stocky37/greeting-ui
 
 configMapGenerator:
-- name: greeting-ui-config
-  files:
+- files:
   - env.js
+  name: greeting-ui-config
 
 # prefix route url with environment subdomain
 replacements:
 - source:
-    kind: Route
     fieldPath: metadata.labels.environment
+    kind: Route
   targets:
-  - select:
-      kind: Route
-    fieldPaths: ['spec.host']
+  - fieldPaths:
+    - spec.host
     options:
-      delimiter: '.'
+      delimiter: .
       index: -1
+    select:
+      kind: Route
