@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+nameSuffix: -stage
+
+components:
+  - ../../../components/argocd-hooks
+
+configMapGenerator:
+  - name: postsync-env
+    behavior: merge
+    literals:
+      - ENVIRONMENT=stage
+

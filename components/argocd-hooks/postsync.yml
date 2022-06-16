@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: postsync
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+spec:
+  template:
+    spec:
+      containers:
+        - name: script
+          image: quay.io/tstockwell/ubi8-gettext
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: postsync-env
+          command:
+            - /bin/bash
+            - /scripts/postsync.sh
+          volumeMounts:
+            - name: files
+              mountPath: /scripts
+      restartPolicy: OnFailure
+      volumes:
+        - name: files
+          configMap:
+            name: postsync-files
+
+

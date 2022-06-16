@@ -1,20 +1,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: demo-gitops-cicd-stage
 
 commonLabels:
   environment: stage
 
 resources:
-- ../../base
-
-configMapGenerator:
-- name: greeting-ui-config
-  files:
-    - env.js
-
-patches:
-- path: patch-route.yml
+- app
+- argocd
 
 images:
 - digest: sha256:016a812d01c512faf5f37564531a95efe9a7ecc444801cfa74cf2e33aecfa4c7

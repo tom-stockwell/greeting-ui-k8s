@@ -1,0 +1,25 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+namespace: demo-gitops-cicd-cicd
+namePrefix: greeting-ui-
+
+commonLabels:
+  app: greeting-ui
+
+configMapGenerator:
+  - name: postsync-files
+    files:
+      - files/postsync.sh
+      - files/webhook-template.json
+
+  - name: postsync-env
+    literals:
+      - APP_NAME=greeting-ui
+      - HOOK=PostSync
+      - WEBHOOK_URL=http://webhooks.demo-gitops-cicd-cicd.apps.paas.lab.stocky37.dev
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+resources:
+  - postsync.yml

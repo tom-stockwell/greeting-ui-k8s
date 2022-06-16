@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: demo-gitops-cicd-dev
+
+resources:
+- ../../../base
+
+configMapGenerator:
+- name: greeting-ui-config
+  files:
+  - env.js
+
+patches:
+- path: patch-route.yml
