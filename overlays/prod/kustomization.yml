@@ -9,5 +9,5 @@ resources:
 - argocd
 
 images:
-- digest: sha256:f14367878efb0c8ac0895622e8cc42ac8cfec648af18615eb8eb3fed62c5824d
+- digest: sha256:dbe55640670779f15ce353482a58a60e2c1c92078ccd9f108a330bfb7a0869bd
   name: quay.io/tstockwell/greeting-ui
